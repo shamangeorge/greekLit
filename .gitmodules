@@ -1,0 +1,3 @@
+[submodule "canonical-greekLit"]
+	path = canonical-greekLit
+	url = git@github.com:PerseusDL/canonical-greekLit.git
