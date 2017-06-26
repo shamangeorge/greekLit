@@ -21,6 +21,6 @@ yet. Working on it...:
 
 TODO:
 
-1 - generic indexer/parser for homer
-2 - move on to generalize the parser to all authors of prose
-3 - move on to include different categories of text
+- generic indexer/parser for homer
+- move on to generalize the parser to all authors of prose
+- move on to include different categories of text
