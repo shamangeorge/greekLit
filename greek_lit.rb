@@ -6,6 +6,8 @@ require 'awesome_print'
 title = "iliad"
 author = "homer"
 file = "canonical-greekLit/data/tlg0012/tlg001/tlg0012.tlg001.perseus-grc2.xml"
+file = "canonical-greekLit/data/tlg0012/tlg002/tlg0012.tlg002.perseus-grc2.xml"
+#file = "canonical-greekLit/data/tlg0020/tlg002/tlg0020.tlg002.perseus-grc2.xml" <- Hesiod
 xml = File.read(file)
 ox = Ox.parse(xml)
 
@@ -25,7 +27,7 @@ xml_lines = book.nodes.map do |node|
     node
   elsif node.value = "q"
     node.nodes.map do |l|
-      l unless l.value != "l"
+      l
     end
   end
 end.each do |line|
@@ -37,33 +39,54 @@ end.each do |line|
     lines.push(line) unless line.nil?
   end
 end
-jsons = lines.map do |line|
-  number = line.attributes[:n].to_i
-  content = line.nodes.first
-  if line.nodes.first.class == Ox::Element
-    content = line.nodes.last
-  end
-  {
-    book: book_num,
-    number: number,
-    content: content
-  }
-end
-num_lines = jsons.last[:number] - jsons.first[:number]
-if jsons.size - 1 == num_lines
-  puts "#"*90
-  puts jsons.last.inspect.green
-else
-  puts "#"*90
-  puts "book: #{book_num}".red
-  puts "jsons: #{jsons.size}".red
-  puts "num_lines: #{num_lines}".red
-  jsons.each_with_index do |obj, i|
-    if i + 1 != obj[:number]
-      puts (i + 1).to_s.yellow
-      puts obj[:number].to_s.yellow
-      puts obj.inspect
+mlines = []
+lines.each_with_index do |line, i|
+  if line.value == "q"
+    line.nodes.each do |n|
+      if n.value == "l"
+        mlines.push({
+          book: book_num,
+          content: n.nodes.last,
+          number: n.attributes[:n]
+        })
+      end
     end
+  elsif line.value == "l"
+    mlines.push({
+      book: book_num,
+      content: line.nodes.last,
+      number: line.attributes[:n]
+    })
   end
 end
+mlines.each_with_index do |line, i|
+  puts "#{i + 1}:#{line.inspect}"
+end
+#jsons = lines.map do |line|
+#number = line.attributes[:n].to_i
+#content = line.nodes.first
+#if line.nodes.first.class == Ox::Element
+#content = line.nodes.last
 #end
+#{
+#book: book_num,
+#number: number,
+#content: content
+#}
+#end
+#num_lines = jsons.last[:number] - jsons.first[:number]
+#if jsons.size - 1 == num_lines
+#puts "#"*90
+#puts jsons.last.inspect.green
+#else
+#puts "#"*90
+#puts "book: #{book_num}".red
+#puts "jsons: #{jsons.size}".red
+#puts "num_lines: #{num_lines}".red
+#jsons.each_with_index do |obj, i|
+##if i + 1 != obj[:number]
+#puts "#{(i + 1).to_s.yellow} #{obj.inspect}"
+##end
+#end
+#end
+##end
