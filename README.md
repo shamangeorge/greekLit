@@ -1,9 +1,5 @@
 # canonical-greekLit
 
-Development is happening over at
-[damos](https://damos.fruitopology.net/agora/canonical-greekLit). This
-is just a mirror.
-
 ## setup
 The repository includes the canonical greekLit collection from perseus
 as a submodule so before you proceed with any parsing/indexing please
