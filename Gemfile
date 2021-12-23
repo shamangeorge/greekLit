@@ -1,8 +1,10 @@
-source "https://rubygems.org"
+# frozen_string_literal: true
 
+source 'https://rubygems.org'
 
-gem "pry"
-gem "ox"
-gem "nokogiri"
-gem "activesupport"
-gem "awesome_print"
+gem 'activesupport'
+gem 'awesome_print'
+gem 'nokogiri'
+gem 'ox'
+gem 'pry'
+gem 'rexml'
